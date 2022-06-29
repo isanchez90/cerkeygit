@@ -39,3 +39,5 @@ echo "<br>";
 echo $certificado->branchName(), PHP_EOL; // el nombre de la sucursal (en CSD, en FIEL está vacía)
 echo "<br>";
 echo $certificado->serialNumber()->bytes(), PHP_EOL; // número de serie del certificado
+
+echo "cambio";
