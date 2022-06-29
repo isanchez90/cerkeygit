@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Agencia Nacional de Aduanas  - ANAM</title>
+<!--   <meta charset="UTF-8"> -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>Valida Cerkey </h2>
+  <form onsubmit="return false" enctype="multipart/form-data" id="formUpload">
+ <!--  <form enctype="multipart/form-data" action="subirArchivo.php" method="POST"> -->
+<!--   <form enctype="multipart/form-data" action="a.php" method="POST"> -->
+        <div class="form-group">
+            <label>CER:</label>
+            <input type="file" class="form-control" accept=".cer,.CER" id="cer" name="cer" placeholder="Ingresa tu CER">
+        </div>
+        <div class="form-group">
+            <label>KEY:</label>
+            <input type="file" class="form-control" accept=".key,.KEY" id="key" name="key" placeholder="Ingresa tu Key">
+        </div>
+        <div id="resultados"></div>
+    <button type="button" class="btn btn-default" value="Upload" onclick="subir_archivo()">Enviar </button>
+  </form>
+
+</div>
+
+</body>
+</html>
+
+
+<script>
+
+    function subir_archivo() {
+
+        var formData = new FormData($("#formUpload")[0]);
+       /*  formData = new FormData($("#formUpload")[1]); */
+
+      /*  console.log($("#key"));
+         if (formData.length > 1) {  */
+            $.ajax({
+                    type: "POST",
+                    url: "subirArchivo.php",
+                /*     data: {
+                    cer:$("#cer").val(),
+                    key:$("#key").val(),
+                    }, */data:formData, 
+                        contentType: false,
+                        processData: false,
+                            success: function(response){			
+                                document.getElementById("resultados").style.color = "green";							
+                                $("#resultados").html(response);
+                            },error: function(response){		
+                                document.getElementById("resultados").style.color = "red";								
+                                $("#resultados").html(response);
+                            }
+                        })
+         /* } else {
+            document.getElementById("resultados").style.color = "red";								
+                                $("#resultados").html("ingresa los archivos solicitados");  
+                                
+        }  */
+       
+    }
+
+ /*    function validar_vacio() {
+        valCER = document.getElementById("cer").value; 
+        valKEY = document.getElementById("key").value; 
+
+        if(valCER === null ) {
+                        document.getElementById("resultados").style.color = "red";
+                        $('#resultados').html("Debes ingresar el CER");
+                       return false;
+					}
+
+                    if(valKEY === null) {
+                        document.getElementById("resultados").style.color = "red";
+                        $('#resultados').html("Debes ingresar el KEY");
+                       return false;
+					}
+
+            return true;
+    } */
+        
+</script>
